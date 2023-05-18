@@ -51,13 +51,7 @@ jobs:
           distribution: 'adopt' 
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
-      - name: Run Selenium tests
-        run: | 
-             mvn test
-      - name: Generate HTML report
-        run: mvn surefire-report:report
-      
-      - name: Generate emailable report
+      - name: Run Selenium test
         run: mvn surefire-report:report-only surefire-report:report -DoutputDirectory=$PWD/target/surefire-reports -DoutputName=emailable-report.html
       
       - name: Archive HTML report
@@ -65,4 +59,6 @@ jobs:
         with:
           name: test-reports
           path: |
-                emailable-report.html       
+                target/site/surefire-report
+                target/surefire-reports/emailable-report.html
+       
