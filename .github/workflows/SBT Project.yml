@@ -25,10 +25,7 @@ jobs:
            java-version: 8
            
       - name: Build and Test
-        run: sbt -v +test
-
-      - name: Build Project
-        run: sbt clean compile
+        run: sbt -v +gatling:test
 
       - name: Run Gatling Load Test
         run: sbt gatling:test
