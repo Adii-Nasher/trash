@@ -26,8 +26,10 @@ jobs:
 
       - name: Install sbt
         run: |
-          sudo apt-get update
-          sudo apt-get install sbt
+          wget -O sbt-launch.jar https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.jar
+          echo 'java -jar sbt-launch.jar "$@"' > sbt
+          chmod +x sbt
+          sudo mv sbt /usr/local/bin/
 
       - name: Build Project
         run: sbt clean compile
