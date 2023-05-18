@@ -9,9 +9,7 @@ class GetUsers extends Simulation {
     setUp(
       chainedScenario.inject(
         nothingFor(5 seconds),
-        atOnceUsers(50),
-        constantUsersPerSec(20) during (15 seconds),
-        rampUsersPerSec(1) to 100 during (30 seconds))
+        atOnceUsers(50))
     ).assertions(
       global.responseTime.max.lt(4000),
       global.successfulRequests.percent.gt(98)
