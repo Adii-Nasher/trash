@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+           ref: feature/gitHubActionsAssignmentThree
 
       - name: Setup JDK
         uses: actions/setup-java@v3
