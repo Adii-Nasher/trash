@@ -16,8 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: feature/gitHubActionsAssignmentOne    
+#         with:
+#           ref: feature/gitHubActionsAssignmentOne    
 
       - name: Install Newman
         run: npm install -g newman
@@ -36,18 +36,33 @@ jobs:
           retention-days: 30 
 
   selenium-job:
+    needs: postman-job
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+#         with:
+#            ref: feature/gitHubActionsAssignmentTwo
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt' 
-          ref: feature/gitHubActionsAssignmentTwo
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
       - name: Run Selenium tests
         run: | 
              mvn test
+      - name: Generate HTML report
+        run: mvn surefire-report:report
+      
+      - name: Generate emailable report
+        run: mvn surefire-report:report-only surefire-report:report -DoutputDirectory=$PWD/target/surefire-reports -DoutputName=emailable-report.html
+      
+      - name: Archive HTML report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: |
+                emailable-report.html       
