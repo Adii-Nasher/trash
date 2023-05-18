@@ -30,4 +30,4 @@ jobs:
       - run: chrome --version
       - name: Run Selenium tests
         run: | 
-             mvn test -DPRODUCT_ID="${{ github.event.inputs.product_id }}"
+             mvn test -DsearchProductID="${{ github.event.inputs.product_id }}"
