@@ -57,7 +57,7 @@ jobs:
       - name: Archive HTML report
         uses: actions/upload-artifact@v2
         with:
-          name: test-reports
+          name: Selenium-report
           path: |
                 target/site/surefire-report
                 target/surefire-reports/emailable-report.html
