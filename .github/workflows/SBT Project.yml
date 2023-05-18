@@ -1,0 +1,38 @@
+name: Gatling Load Test
+
+on:
+  push:
+    branches:
+      - gatling-project
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Install sbt
+        run: |
+          sudo apt-get update
+          sudo apt-get install sbt
+
+      - name: Build Project
+        run: sbt clean compile
+
+      - name: Run Gatling Load Test
+        run: sbt gatling:test
+
+      - name: Archive Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: gatling-report
+          path: target/gatling/
+          retention-days: 30
+
