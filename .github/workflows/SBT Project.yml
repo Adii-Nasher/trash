@@ -1,9 +1,14 @@
 name: Gatling Load Test
 
 on:
-  push:
+ workflow_dispatch:
+ push:
     branches:
-      - gatling-project
+      - feature/gitHubActionsAssignmentThree
+      
+ pull_request:
+    branches:  
+      - feature/gitHubActionsAssignmentThree     
 
 jobs:
   load-test:
