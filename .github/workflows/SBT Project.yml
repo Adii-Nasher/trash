@@ -1,4 +1,4 @@
-name: Gatling Load Test
+name: SBT Project
 
 on:
  workflow_dispatch:
@@ -26,14 +26,11 @@ jobs:
            
       - name: Build and Test
         run: sbt -v +gatling:test
-
-      - name: Run Gatling Load Test
-        run: sbt gatling:test
-
+        
       - name: Archive Reports
         uses: actions/upload-artifact@v2
         with:
-          name: gatling-report
+          name: SBT-gatling-report
           path: target/gatling/
           retention-days: 30
 
