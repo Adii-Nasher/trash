@@ -18,18 +18,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v3
         with:
-          java-version: 11
-          distribution: 'adopt'
-
-      - name: Install sbt
-        run: |
-          wget -O sbt-launch.jar https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.jar
-          echo 'java -jar sbt-launch.jar "$@"' > sbt
-          chmod +x sbt
-          sudo mv sbt /usr/local/bin/
+           distribution: temurin
+           java-version: 8
+           
+      - name: Build and Test
+        run: sbt -v +test
 
       - name: Build Project
         run: sbt clean compile
